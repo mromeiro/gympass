@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Gympass
 {
-    class PilotData
+    public class PilotData
     {
         public int Id { get; set; }
 

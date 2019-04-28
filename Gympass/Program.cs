@@ -1,63 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gympass
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            var raceData = new Dictionary<int, PilotData>();
-            string line;
+            if (!CheckParams(args)) return ;
 
-            if (!CheckParams(args)) Environment.Exit(1);
+            var raceData = RaceDataProcessor.ProcessRaceData(args[0]);
 
-            var file = new StreamReader(args[0]);
-            line = file.ReadLine(); //Discards the first line
-            while ((line = file.ReadLine()) != null)
-            {
-                var lap = Lap.ParseLap(line);
-
-                if(raceData.TryGetValue(lap.PilotId, out var pilotData))
-                {
-                    pilotData.LapsInfo.Add(lap);
-
-                    //Just to be safe in case the laps are not in order
-                    pilotData.CurrentLap = pilotData.CurrentLap < lap.LapNumber ? lap.LapNumber : pilotData.CurrentLap;
-                }
-                else
-                {
-                    raceData[lap.PilotId] = new PilotData()
-                    {
-                        CurrentLap = lap.LapNumber,
-                        Id = lap.PilotId,
-                        Name = lap.PilotName,
-                        LapsInfo = new List<Lap> { lap }
-                    };
-                }
-            }
-
-            //Order the result  by number of laps completed then by the lowest race time
-            var pilotDataOrdered = raceData.OrderByDescending(_ => _.Value.CurrentLap).
-                ThenBy(_ => _.Value.TotalTime.TotalMilliseconds).Select(_ => _.Value);
+            if (!raceData.Any()) return;
 
             var outputFile = new StreamWriter("result.txt");
             var position = 1;
             outputFile.WriteLine("posição|piloto|voltas|tempo total de prova");
-            foreach (var pilotData in pilotDataOrdered)
+            foreach (var pilotData in raceData)
             {
                 outputFile.WriteLine($"{position++}|{pilotData.Id} - {pilotData.Name}|{pilotData.CurrentLap}|{pilotData.TotalTime}");
             }
 
             outputFile.Close();
-            Environment.Exit(0);
         }
 
-        private static bool CheckParams(string[] args)
+        public static bool CheckParams(string[] args)
         {
             if (args.Length == 0)
             {

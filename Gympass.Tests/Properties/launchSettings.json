@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Gympass.Tests": {
+      "commandName": "Executable",
+      "executablePath": "nunit test"
+    }
+  }
+}
