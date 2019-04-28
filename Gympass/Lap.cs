@@ -9,13 +9,13 @@ namespace Gympass
 {
     class Lap
     {
-        int PilotId { get; set; }
+        public int PilotId { get; set; }
 
-        string PilotName { get; set; }
+        public string PilotName { get; set; }
 
-        int LapNumber { get; set; }
+        public int LapNumber { get; set; }
 
-        TimeSpan lapTime { get; set; }
+        public TimeSpan lapTime { get; set; }
 
         public static Lap ParseLap(string line)
         {
