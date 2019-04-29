@@ -16,7 +16,7 @@ namespace Gympass
 
             var outputFile = new StreamWriter("result.txt");
             var position = 1;
-            outputFile.WriteLine("posição|piloto|voltas|tempo total de prova|melhor volta|terminou a prova após|velocidade média");
+            outputFile.WriteLine("posição|piloto|voltas|tempo total de prova|melhor volta|tempo após primeiro colocado|velocidade média");
             foreach (var pilotData in raceData)
             {
                 outputFile.WriteLine($"{position++}|{pilotData.Id} - {pilotData.Name}" +

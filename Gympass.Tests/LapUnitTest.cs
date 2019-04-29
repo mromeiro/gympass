@@ -23,6 +23,8 @@ namespace Tests
             Assert.AreEqual(result.LapTime, new TimeSpan(0,0,1,2,852));
             Assert.AreEqual(result.PilotId, 38);
             Assert.AreEqual(result.PilotName, "F.MASSA");
+            Assert.AreEqual(result.AvgSpeed, decimal.Parse("44.275"));
+            Assert.AreEqual(result.FinishAt, new TimeSpan(0, 23, 49, 8, 277));
         }
 
 
