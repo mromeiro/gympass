@@ -1,0 +1,27 @@
+O programa recebe como parâmetro o nome do arquivo de log a ser processado, e como resultado gera o arquivo "result.txt" no diretório do executável.
+
+O arquivo de saída possui o seguinte formato:
+
+------------------
+
+posição|piloto|voltas|tempo total de prova|melhor volta|tempo após primeiro colocado|velocidade média
+1|38 - F.MASSA|4|00:04:11.5780000|00:01:02.7690000|00:00:00|44245,750
+2|2 - K.RAIKKONEN|4|00:04:15.1530000|00:01:03.0760000|00:00:05.1170000|33842,000
+3|33 - R.BARRICHELLO|4|00:04:16.0800000|00:01:03.7160000|00:00:05.5830000|33685,000
+4|23 - M.WEBBER|4|00:04:17.7220000|00:01:04.2160000|00:00:08.9720000|43191,250
+5|15 - F.ALONSO|4|00:04:54.2210000|00:01:07.0110000|00:00:49.7380000|30085,500
+6|11 - S.VETTEL|3|00:06:27.2760000|00:01:18.0970000|00:02:40.7540000|25745,667
+
+Melhor volta da corrida => 00:01:02.7690000
+
+------------------
+
+Os dados do arquivo de entrada possuiam uma mistura de "tabs" e espaçamentos simples, por isso trabalhei com a assumption de que os dados no arquivo fossem posicionais e distribuidos da seguinte forma:
+
+Hora => caracteres 1 a 12
+Piloto => caracteres 19 a 58
+Número da volta => 59 a 72
+Tempo da volta => 73 a 104
+Velocidade média => 105 até o final da linha
+
+
