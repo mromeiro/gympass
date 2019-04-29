@@ -11,7 +11,11 @@ namespace Gympass
 
         public int LapNumber { get; set; }
 
-        public TimeSpan lapTime { get; set; }
+        public TimeSpan LapTime { get; set; }
+
+        public TimeSpan FinishAt { get; set; }
+
+        public decimal AvgSpeed { get; set; }
 
         public static Lap ParseLap(string line)
         {
@@ -24,13 +28,17 @@ namespace Gympass
                 var pilotId = int.Parse(pilotData.Split('–')[0].TrimEnd());
                 var lapNumber = int.Parse(line.Substring(58, 14).TrimEnd());
                 var lapTime = TimeSpan.Parse($"0:0:{line.Substring(72, 32).TrimEnd()}", new CultureInfo("en-US"));
+                var finishAt = TimeSpan.Parse(line.Substring(0, 12).TrimEnd(), new CultureInfo("en-US"));
+                var avgSpeed = decimal.Parse(line.Substring(104, line.Length - 104).Replace(",","."));
 
                 return new Lap()
                 {
                     PilotId = pilotId,
                     PilotName = pilotName,
                     LapNumber = lapNumber,
-                    lapTime = lapTime
+                    LapTime = lapTime,
+                    FinishAt = finishAt,
+                    AvgSpeed = avgSpeed
                 };
             }
             catch(FormatException e)

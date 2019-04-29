@@ -20,7 +20,7 @@ namespace Tests
             var result = Lap.ParseLap(line);
 
             Assert.AreEqual(result.LapNumber, 1);
-            Assert.AreEqual(result.lapTime, new TimeSpan(0,0,1,2,852));
+            Assert.AreEqual(result.LapTime, new TimeSpan(0,0,1,2,852));
             Assert.AreEqual(result.PilotId, 38);
             Assert.AreEqual(result.PilotName, "F.MASSA");
         }

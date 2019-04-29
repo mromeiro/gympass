@@ -10,17 +10,23 @@ namespace Gympass
         {
             if (!CheckParams(args)) return ;
 
-            var raceData = RaceDataProcessor.ProcessRaceData(args[0]);
+            var raceData = RaceDataProcessor.ProcessRaceData(args[0], out var bestLapOverall);
 
             if (!raceData.Any()) return;
 
             var outputFile = new StreamWriter("result.txt");
             var position = 1;
-            outputFile.WriteLine("posição|piloto|voltas|tempo total de prova");
+            outputFile.WriteLine("posição|piloto|voltas|tempo total de prova|melhor volta|terminou a prova após|velocidade média");
             foreach (var pilotData in raceData)
             {
-                outputFile.WriteLine($"{position++}|{pilotData.Id} - {pilotData.Name}|{pilotData.CurrentLap}|{pilotData.TotalTime}");
+                outputFile.WriteLine($"{position++}|{pilotData.Id} - {pilotData.Name}" +
+                                     $"|{pilotData.CurrentLap}|{pilotData.TotalTime}" +
+                                     $"|{pilotData.BestLap}|{pilotData.FinishAt.Subtract(raceData[0].FinishAt)}" +
+                                     $"|{pilotData.AvgSpeed:0.000}");
             }
+
+            outputFile.WriteLine();
+            outputFile.WriteLine($"Melhor volta da corrida => {bestLapOverall}");
 
             outputFile.Close();
         }
